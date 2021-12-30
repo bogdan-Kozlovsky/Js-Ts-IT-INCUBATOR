@@ -1,0 +1,41 @@
+.counterWrapper{
+    width: 200px;
+    height: 160px;
+    border: 1px solid orange;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: aquamarine;
+}
+
+.counterTitle{
+    margin: 0 auto 50px;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    border: 2px solid red;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.counterWrapperBtn{
+    text-align: center;
+}
+
+.btn{
+    font-family: 'Licorice', cursive;
+    padding: 2px 15px;
+    background-color: aqua;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid orange;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.btn:disabled{
+    cursor: auto;
+    opacity: 0.4;
+}
