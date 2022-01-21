@@ -1,31 +1,65 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './counter.css'
-import {CounterTitle} from './CounterTitle';
 import {Button} from './Button';
+import {CounterTitle} from "./CounterTitle";
 
-export const Counter = () => {
-
-    let [title, setTitle] = useState(0)
-
-    const increment = () => {
-        setTitle(++title)
-    }
-
-    const close = () => {
-        setTitle(0)
-    }
+type CounterPropsType = {
+    title:any
+    upperBound:any
+}
+export const Counter = ({...props}:CounterPropsType) => {
 
 
-    const disabledIncrement = title < 5 ? false : true
-    const disabledClose = title > 0 ? false : true
+    // useEffect(() => {
+    //     let startLocalValue = localStorage.getItem('startValue')
+    //     if (startLocalValue) {
+    //         setStart(JSON.parse(startLocalValue))
+    //         setTitle(JSON.parse(startLocalValue))
+    //     }
+    //
+    //     let maxLocalValue = localStorage.getItem('maxValue')
+    //     if (maxLocalValue) {
+    //         setMax(JSON.parse(maxLocalValue))
+    //     }
+    // }, [])
+
+
+    // let [title, setTitle] = useState<any>(0)
+    // const [max, setMax] = useState<any>(5)
+    // // const [start, setStart] = useState<any>(0)
+    // const [upperBound, setUpperBound] = useState<any>(5)
+    // const [bottomBound, setBottomBound] = useState<any>(0)
+    // useEffect(() => {
+    //     localStorage.setItem('titleValue', JSON.stringify(title))
+    // }, [props.title])
+    //
+    //
+    //
+    //
+    //
+    // const disabledIncrement = props.title < upperBound ? false : true
+    // const disabledClose = props.title > 0 ? false : true
+
+
+    // const onChangeMin = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setStart(event.currentTarget.value)
+    // }
+    //
+    // const onChangeMax = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setMax(event.currentTarget.value)
+    // }
+
+
+    // const SetValueLocalState = () => {
+    //     localStorage.setItem('startValue', (start))
+    //     localStorage.setItem('maxValue', (max))
+    //     setUpperBound(localStorage.getItem('maxValue'))
+    //     setTitle(localStorage.getItem('startValue'))
+    // }
 
     return (
         <div className="counterWrapper">
-            <CounterTitle title={title}/>
-            <div className="counterWrapperBtn">
-                <Button name={'inc'} callBack={() => increment()} disabled={disabledIncrement}/>
-                <Button name={'reset'} callBack={() => close()} disabled={disabledClose}/>
-            </div>
+            <CounterTitle title={props.title} upperBound={props.upperBound}/>
         </div>
     )
 }

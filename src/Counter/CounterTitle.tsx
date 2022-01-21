@@ -3,10 +3,11 @@ import './counter.css'
 
 type CounterTitlePropsType = {
     title: number
+    upperBound: any
 }
 
-export const CounterTitle: FC<CounterTitlePropsType> = ({title}) => {
+export const CounterTitle: FC<CounterTitlePropsType> = ({title, ...props}) => {
     return (
-        <h1 style={title >= 5 ? {color: 'red'} : {color: 'black'}} className="counterTitle">{title}</h1>
+        <h1 style={title >= props.upperBound ? {color: 'red'} : {color: 'black'}} className="counterTitle">{title}</h1>
     )
 }
