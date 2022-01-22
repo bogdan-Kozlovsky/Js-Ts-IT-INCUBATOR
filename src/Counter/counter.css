@@ -1,13 +1,16 @@
-.counterWrapper{
-    /*width: 200px;*/
+.counterWrapper {
+    width: 350px;
     height: 250px;
     border: 1px solid orange;
     border-radius: 20px;
     padding: 20px;
     background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+
 }
 
-.counterTitle{
+.counterTitle {
     margin: 0 auto 50px;
     text-align: center;
     width: 100%;
@@ -17,13 +20,14 @@
     background-color: white;
 }
 
-.counterWrapperBtn{
+.counterWrapperBtn {
+    flex: 1 1 auto;
     text-align: center;
 }
 
-.btn{
+.btn {
     font-family: 'Licorice', cursive;
-    padding: 2px 15px;
+    padding: 2px 25px;
     background-color: aqua;
     color: black;
     font-size: 15px;
@@ -35,7 +39,41 @@
     transition: all 0.5s;
 }
 
-.btn:disabled{
+.btn:disabled {
     cursor: auto;
     opacity: 0.4;
+}
+
+.errorClass {
+    /*height: 50px;*/
+    border: 3px solid red;
+    border-radius: 20px;
+    padding: 8px;
+    /*opacity: 0.4;*/
+}
+
+.normalClass {
+    /*height: 50px;*/
+    border: 1px solid orange;
+    border-radius: 20px;
+    padding: 8px;
+}
+
+.formWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input {
+    border-radius: 5px;
+    padding: 3px 5px;
+    border: 1px solid orange;
+    background-color: transparent;
+}
+
+.errorSpan{
+    text-align: center;
+    color: red;
+    padding-bottom: 4px;
 }

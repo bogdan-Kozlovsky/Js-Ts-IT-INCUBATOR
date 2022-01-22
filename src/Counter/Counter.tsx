@@ -44,12 +44,12 @@ export const Counter = ({...props}) => {
 
     const onChangeMin = (event: ChangeEvent<HTMLInputElement>) => {
         setStart(event.currentTarget.value)
-        setTitle('set')
+        setTitle('press set')
     }
 
     const onChangeMax = (event: ChangeEvent<HTMLInputElement>) => {
         setMax(event.currentTarget.value)
-        setTitle('set')
+        setTitle('press set')
     }
     const increment = () => {
         setTitle(++title)
@@ -59,6 +59,8 @@ export const Counter = ({...props}) => {
         setTitle(0)
     }
 
+    const disabledError = max === start || max <= 0 || start < 0 || start >= max
+
     return (
         <div className="counterWrapper">
             <CounterTitle title={title} max={max}/>
@@ -67,17 +69,35 @@ export const Counter = ({...props}) => {
                 <Button name={'reset'} callBack={() => close()} disabled={disabledClose}/>
             </div>
             <div>
-                <div>
-                    <label>
-                        max
-                        <input onChange={onChangeMax} value={max} type="number"/>
-                    </label>
-                    <label>
-                        min
-                        <input onChange={onChangeMin} value={start} type="number"/>
-                        <Button name={"set"} callBack={onClickSetHandler}/>
-                        {max === start || max <= 0 || start < 0 || start >= max ? <div>Error</div> : <div>Yes</div>}
-                    </label>
+                {max === start || max <= 0 || start < 0 || start >= max ?
+                    <div className='errorSpan'>data is incorrect</div> : null}
+                <div
+                    className={max === start || max <= 0 || start < 0 || start >= max ? "errorClass" : 'normalClass'}>
+
+                    <div className='formWrapper'>
+
+
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                            <label style={{paddingBottom: '5px', display: 'inline-block'}}>
+                                <span style={{
+                                    display: 'inline-block',
+                                    paddingRight: '10px',
+                                    color: '#0008ff'
+                                }}>Max:</span>
+                                <input className='input' onChange={onChangeMax} value={max} type="number"/>
+                            </label>
+                            <label style={{display: 'block'}}>
+                                <span style={{
+                                    display: 'inline-block',
+                                    paddingRight: '10px',
+                                    color: '#0008ff'
+                                }}>Min:</span>
+                                <input className='input' onChange={onChangeMin} value={start} type="number"/>
+                            </label>
+                        </div>
+                        <Button name={"set"} callBack={onClickSetHandler} disabled={disabledError}/>
+                    </div>
+
                 </div>
             </div>
         </div>

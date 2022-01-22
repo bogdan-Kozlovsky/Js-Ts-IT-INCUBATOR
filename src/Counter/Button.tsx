@@ -4,7 +4,7 @@ import './counter.css'
 type ButtonPropsType = {
     name: string
     callBack: () => void
-    disabled?:boolean
+    disabled:boolean
 }
 
 export const Button: FC<ButtonPropsType> = ({name, callBack,disabled}) => {
