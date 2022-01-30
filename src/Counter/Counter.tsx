@@ -6,17 +6,20 @@ import {CounterTitle} from "./CounterTitle";
 
 export const Counter = ({...props}) => {
     let [title, setTitle] = useState<any>(0)
-    let [start, setStart] = useState<any>(0)
-    let [max, setMax] = useState<any>(5)
+    let [start, setStart] = useState<number>(0)
+    let [max, setMax] = useState<number>(5)
 
-
-    let [error, setError] = useState<boolean>(false)
-    let [changesMod, setChangesMod] = useState<boolean>(false)
+    let [error, setError] = useState<number>(-1)
 
 
     useEffect(() => {
         localStorage.setItem('titleValue', JSON.stringify(title))
     }, [title])
+
+    useEffect(() => {
+        setError(error + 1)
+
+    }, [max])
 
 
     useEffect(() => {
@@ -34,45 +37,46 @@ export const Counter = ({...props}) => {
 
 
     const onClickSetHandler = () => {
-        localStorage.setItem('maxValue', max)
-        localStorage.setItem('startValue', start)
+        localStorage.setItem('maxValue', JSON.stringify(max))
+        localStorage.setItem('startValue', JSON.stringify(start))
         let minValue = localStorage.getItem('startValue')
         if (minValue) {
             setTitle(JSON.parse(minValue))
         }
+        setError(0)
     }
 
     const onChangeMin = (event: ChangeEvent<HTMLInputElement>) => {
-        setStart(event.currentTarget.value)
-        setTitle('press set')
+        setTitle('Press Set!!!')
+        setStart(+event.currentTarget.value)
     }
 
     const onChangeMax = (event: ChangeEvent<HTMLInputElement>) => {
-        setMax(event.currentTarget.value)
-        setTitle('press set')
+        setTitle('Press Set!!!')
+        setMax(+event.currentTarget.value)
     }
     const increment = () => {
-        setTitle(++title)
+        setTitle(title++)
     }
 
     const close = () => {
         setTitle(0)
     }
 
-    const disabledError = max === start || max <= 0 || start < 0 || start >= max
+    const disabledError = max <= start || max < 0 || start < 0
 
     return (
         <div className="counterWrapper">
-            <CounterTitle title={title} max={max}/>
+            <CounterTitle title={title} max={max} start={start} error={error}/>
             <div className="counterWrapperBtn">
                 <Button name={'inc'} callBack={() => increment()} disabled={disabledIncrement}/>
                 <Button name={'reset'} callBack={() => close()} disabled={disabledClose}/>
             </div>
             <div>
-                {max === start || max <= 0 || start < 0 || start >= max ?
+                {max <= start || max < 0 || start < 0 ?
                     <div className='errorSpan'>data is incorrect</div> : null}
                 <div
-                    className={max === start || max <= 0 || start < 0 || start >= max ? "errorClass" : 'normalClass'}>
+                    className={max <= start || max < 0 || start < 0 ? "errorClass" : 'normalClass'}>
 
                     <div className='formWrapper'>
 
