@@ -6,15 +6,15 @@ import {CounterTitle} from "./CounterTitle";
 
 export const Counter = ({...props}) => {
     let [title, setTitle] = useState<any>(0)
+    let [string, setString] = useState<string>('Press Set!!!')
     let [start, setStart] = useState<number>(0)
     let [max, setMax] = useState<number>(5)
 
     let [error, setError] = useState<number>(-1)
 
-
-    useEffect(() => {
-        localStorage.setItem('titleValue', JSON.stringify(title))
-    }, [title])
+    // useEffect(() => {
+    //     localStorage.setItem('titleValue', JSON.stringify(title))
+    // }, [title])
 
     useEffect(() => {
         setError(error + 1)
@@ -29,6 +29,7 @@ export const Counter = ({...props}) => {
             setStart(JSON.parse(minValue))
         }
     }, [])
+
 
     const disabledIncrement = title < max ? false : true
 
@@ -48,15 +49,20 @@ export const Counter = ({...props}) => {
 
     const onChangeMin = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle('Press Set!!!')
+        // setString('Press Set!!!')
         setStart(+event.currentTarget.value)
     }
 
     const onChangeMax = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle('Press Set!!!')
+        // setString('Press Set!!!')
         setMax(+event.currentTarget.value)
     }
     const increment = () => {
-        setTitle(title++)
+
+
+        // if(typeof title === 'number')
+        setTitle(title + 1)
     }
 
     const close = () => {
@@ -67,7 +73,7 @@ export const Counter = ({...props}) => {
 
     return (
         <div className="counterWrapper">
-            <CounterTitle title={title} max={max} start={start} error={error}/>
+            <CounterTitle title={title} max={max} start={start} error={error} string={string}/>
             <div className="counterWrapperBtn">
                 <Button name={'inc'} callBack={() => increment()} disabled={disabledIncrement}/>
                 <Button name={'reset'} callBack={() => close()} disabled={disabledClose}/>

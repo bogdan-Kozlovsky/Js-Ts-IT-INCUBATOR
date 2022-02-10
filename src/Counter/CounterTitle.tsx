@@ -6,6 +6,7 @@ type CounterTitlePropsType = {
     max: number
     start: number
     error: number
+    string: string
 }
 
 export const CounterTitle: FC<CounterTitlePropsType> = ({title, ...props}) => {
