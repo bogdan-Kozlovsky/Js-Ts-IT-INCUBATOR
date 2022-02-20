@@ -1,92 +1,65 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import './counter.css'
 import {Button} from './Button';
 import {CounterTitle} from "./CounterTitle";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../redux/store";
+import {
+    errorAC,
+    incrementAC,
+    InitialStateType,
+    maxValueChangeAC,
+    minTitleAC,
+    resetAC,
+    startValueChangeAC
+} from "../redux/coutnReducer";
 
 
 export const Counter = ({...props}) => {
-    let [title, setTitle] = useState<any>(0)
-    let [string, setString] = useState<string>('Press Set!!!')
-    let [start, setStart] = useState<number>(0)
-    let [max, setMax] = useState<number>(5)
-
-    let [error, setError] = useState<number>(-1)
-
-    // useEffect(() => {
-    //     localStorage.setItem('titleValue', JSON.stringify(title))
-    // }, [title])
-
-    useEffect(() => {
-        setError(error + 1)
-
-    }, [max])
+    const dispatch = useDispatch()
 
 
-    useEffect(() => {
-        let minValue = localStorage.getItem('startValue')
-        if (minValue) {
-            setTitle(JSON.parse(minValue))
-            setStart(JSON.parse(minValue))
-        }
-    }, [])
+    const {titleValue, maxValue, minValue} = useSelector<AppStateType, InitialStateType>(state => state.counter)
+    const disabledIncrement = +titleValue < maxValue ? false : true
+    const disabledClose = +titleValue === maxValue ? false : true
+    const disabledError = maxValue <= minValue || maxValue < 0 || minValue < 0
 
 
-    const disabledIncrement = title < max ? false : true
-
-
-    const disabledClose = title === max ? false : true
-
-
+    const onClickIncrement = () => {
+        dispatch(incrementAC(+titleValue))
+    }
+    const onClickReset = () => {
+        dispatch(resetAC())
+    }
     const onClickSetHandler = () => {
-        localStorage.setItem('maxValue', JSON.stringify(max))
-        localStorage.setItem('startValue', JSON.stringify(start))
-        let minValue = localStorage.getItem('startValue')
-        if (minValue) {
-            setTitle(JSON.parse(minValue))
-        }
-        setError(0)
+        dispatch(minTitleAC(minValue))
     }
 
-    const onChangeMin = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle('Press Set!!!')
-        // setString('Press Set!!!')
-        setStart(+event.currentTarget.value)
+
+    const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(maxValueChangeAC(+e.currentTarget.value))
+        dispatch(errorAC())
+    }
+    const onChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(startValueChangeAC(+e.currentTarget.value))
+        dispatch(errorAC())
     }
 
-    const onChangeMax = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle('Press Set!!!')
-        // setString('Press Set!!!')
-        setMax(+event.currentTarget.value)
-    }
-    const increment = () => {
-
-
-        // if(typeof title === 'number')
-        setTitle(title + 1)
-    }
-
-    const close = () => {
-        setTitle(0)
-    }
-
-    const disabledError = max <= start || max < 0 || start < 0
 
     return (
         <div className="counterWrapper">
-            <CounterTitle title={title} max={max} start={start} error={error} string={string}/>
+            <CounterTitle titleValue={titleValue} maxValue={maxValue} minValue={minValue}/>
             <div className="counterWrapperBtn">
-                <Button name={'inc'} callBack={() => increment()} disabled={disabledIncrement}/>
-                <Button name={'reset'} callBack={() => close()} disabled={disabledClose}/>
+                <Button name={'inc'} callBack={onClickIncrement} disabled={disabledIncrement}/>
+                <Button name={'reset'} callBack={onClickReset} disabled={disabledClose}/>
             </div>
             <div>
-                {max <= start || max < 0 || start < 0 ?
+                {maxValue <= minValue || maxValue < 0 || minValue < 0 ?
                     <div className='errorSpan'>data is incorrect</div> : null}
                 <div
-                    className={max <= start || max < 0 || start < 0 ? "errorClass" : 'normalClass'}>
+                    className={maxValue <= minValue || maxValue < 0 || minValue < 0 ? "errorClass" : 'normalClass'}>
 
                     <div className='formWrapper'>
-
-
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             <label style={{paddingBottom: '5px', display: 'inline-block'}}>
                                 <span style={{
@@ -94,7 +67,7 @@ export const Counter = ({...props}) => {
                                     paddingRight: '10px',
                                     color: '#0008ff'
                                 }}>Max:</span>
-                                <input className='input' onChange={onChangeMax} value={max} type="number"/>
+                                <input className='input' onChange={onChangeMaxValue} value={maxValue} type="number"/>
                             </label>
                             <label style={{display: 'block'}}>
                                 <span style={{
@@ -102,7 +75,7 @@ export const Counter = ({...props}) => {
                                     paddingRight: '10px',
                                     color: '#0008ff'
                                 }}>Min:</span>
-                                <input className='input' onChange={onChangeMin} value={start} type="number"/>
+                                <input className='input' onChange={onChangeMinValue} value={minValue} type="number"/>
                             </label>
                         </div>
                         <Button name={"set"} callBack={onClickSetHandler} disabled={disabledError}/>

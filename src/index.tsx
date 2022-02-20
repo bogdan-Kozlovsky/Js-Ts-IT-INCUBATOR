@@ -3,23 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import {store} from "./redux/store";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
 
-
-const reducer = (state: any, action: any) => {
-    switch (action.type) {
-        default:
-            return state
-    }
-}
-const store = createStore(reducer)
 
 ReactDOM.render(
     <Provider store={store}>
-        <React.StrictMode>
-            <App/>
-        </React.StrictMode>
+        <App/>
     </Provider>,
 
     document.getElementById('root')

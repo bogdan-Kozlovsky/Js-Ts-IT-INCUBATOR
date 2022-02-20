@@ -2,18 +2,15 @@ import React, {FC} from 'react'
 import './counter.css'
 
 type CounterTitlePropsType = {
-    title: number
-    max: number
-    start: number
-    error: number
-    string: string
+    titleValue: string
+    maxValue: number
+    minValue: number
 }
 
-export const CounterTitle: FC<CounterTitlePropsType> = ({title, ...props}) => {
+export const CounterTitle: FC<CounterTitlePropsType> = ({titleValue, maxValue, minValue, ...props}) => {
     return (
-        <h1 style={title >= props.max ? {color: 'red'} : {color: 'black'}} className="counterTitle">
-            {/*{props.error ? 'Press Set!!!' : props.start === title ? title : 'Press Set!!'}*/}
-            {title}
+        <h1 style={+titleValue >= maxValue ? {color: 'red'} : {color: 'black'}} className="counterTitle">
+            {titleValue}
         </h1>
     )
 }
