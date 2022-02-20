@@ -72,8 +72,25 @@
     background-color: transparent;
 }
 
-.errorSpan{
+.errorSpan {
     text-align: center;
     color: red;
     padding-bottom: 4px;
+}
+
+.formWrapperBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formWrapperLabel {
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.formWrapperSpan{
+    display: inline-block;
+    padding-right: 10px;
+    color: #0008ff;
 }

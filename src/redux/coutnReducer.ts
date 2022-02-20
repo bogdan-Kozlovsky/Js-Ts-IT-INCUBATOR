@@ -1,10 +1,12 @@
+import * as stream from "stream";
+
 export type InitialStateType = {
     titleValue: string
     minValue: number
     maxValue: number
 }
 export const initialState = {
-    titleValue: '5',
+    titleValue: '0',
     minValue: 0,
     maxValue: 10
 }

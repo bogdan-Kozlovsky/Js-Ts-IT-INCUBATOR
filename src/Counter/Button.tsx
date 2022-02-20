@@ -8,12 +8,7 @@ type ButtonPropsType = {
 }
 
 export const Button: FC<ButtonPropsType> = ({name, callBack,disabled}) => {
-
-    const onClickHandler = () => {
-        callBack()
-    }
-
     return (
-        <button disabled={disabled} className={'btn'}  onClick={onClickHandler}>{name}</button>
+        <button disabled={disabled} className={'btn'}  onClick={() => callBack()}>{name}</button>
     )
 }
