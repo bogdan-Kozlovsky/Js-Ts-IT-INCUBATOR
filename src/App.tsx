@@ -1,17 +1,9 @@
-import './App.css';
-import {Counter} from "./Counter/Counter";
+import "./App.css";
 
-function App() {
+import { Counter } from "./component/Counter";
 
-
-    return (
-        <div className="appWrapper">
-            <Counter/>
-        </div>
-    );
-}
-
-export default App;
-
-
-
+export const App = () => (
+  <div className="appWrapper">
+    <Counter />
+  </div>
+);
